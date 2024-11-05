@@ -110,12 +110,12 @@
           } else if (data.Code === "002") {
             // 如果返回的是002，则等待20秒再检测
             setTimeout(() => {
-              var targetUrl = 'http://' + getRandomTwoChars() + '.zpqbt.cn';
+              var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
               checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
             }, 20000); // 20000毫秒 = 20秒
           } else {
             // 处理其他返回情况
-            var targetUrl = 'http://' + getRandomTwoChars() + '.zpqbt.cn';
+            var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
             checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
           }
         })
@@ -125,7 +125,7 @@
     }
 
     // 开始检测域名并显示加载指示器
-    var targetUrl = 'http://' + getRandomTwoChars() + '.zpqbt.cn';
+    var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
     checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
   </script>
 </body>
